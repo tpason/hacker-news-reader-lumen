@@ -16,3 +16,8 @@ $app->get('/', function () use ($app) {
 });
 $app->get('/{type}', 'HomeController@index');
 $app->get('/', 'HomeController@index');
+$app->group(['prefix' => 'projects', 'middleware' => 'jwt.auth'], function($app) {
+    $app->post('/', 'App\Http\Controllers\ProjectsController@store');
+    $app->put('/{projectId}', 'App\Http\Controllers\ProjectsController@update');
+    $app->delete('/{projectId}', 'App\Http\Controllers\ProjectsController@destroy');
+});
